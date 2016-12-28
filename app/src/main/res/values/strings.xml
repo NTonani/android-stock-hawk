@@ -34,4 +34,10 @@
     <string name="toast_no_connectivity">Will refresh when network available.</string>
     <string name="toast_invalid_stock_added">Symbol %s is invalid and will not be tracked.</string>
 
+    <!-- Intent filters -->
+    <string name="invalid_symbol_intent_filter">InvalidSymbol</string>
+
+    <!-- Stock symbol variable -->
+    <string name="stock_symbol_variable">stockSymbol</string>
+
 </resources>

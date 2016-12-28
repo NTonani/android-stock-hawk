@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.content.LocalBroadcastManager;
 
+import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 
@@ -76,11 +78,15 @@ public final class QuoteSyncJob {
 
                 // YahooFinance API returns a Map of valid symbols only
                 // If a saved symbol isn't returned, warn user and remove from PrefUtils
+                // API will return a Stock object with null values on occassion - getName() is used
+                // To prevent exceptions, as getQuote() exists with null values
                 // TODO: Determine what is more expensive:
                 //      Using contentResolver.notifyChange which will requery the DB, or using network
-                if(stock == null){
-                    // Throw something the MainActivity can capture and display the toast
+                if(stock == null || stock.getName() == null){
                     PrefUtils.removeStock(context,symbol);
+                    Intent invalidSymbolIntent = new Intent(context.getString(R.string.invalid_symbol_intent_filter));
+                    invalidSymbolIntent.putExtra(context.getString(R.string.stock_symbol_variable),symbol);
+                    LocalBroadcastManager.getInstance(context).sendBroadcast(invalidSymbolIntent);
                     continue;
                 }
 

@@ -1,6 +1,9 @@
 package com.udacity.stockhawk.ui;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +53,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Register reciever to listen for InvalidSymbol intents
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mSymbolReceiver, new IntentFilter(getString(R.string.invalid_symbol_intent_filter))
+        );
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -115,15 +124,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     void addStock(String symbol) {
-
-        /*
-        // Avoid resync if network is up and the symbol doesn't exist
-        // This allows the sync service to continue working off the runtime
-        if(networkUp() && !SyncUtil.symbolExists(symbol)){
-            Toast.makeText(this, getString(R.string.toast_invalid_stock_added,symbol), Toast.LENGTH_LONG).show();
-            return;
-        }
-        */
 
         if (symbol != null && !symbol.isEmpty()) {
             if (networkUp()) {
@@ -193,4 +193,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void makeToast(String symbol){
+        Toast.makeText(this,getString(R.string.toast_invalid_stock_added,symbol),Toast.LENGTH_LONG).show();
+    }
+
+    // BroadcastReceiver for invalid symbols
+    private BroadcastReceiver mSymbolReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String symbolExtra = getString(R.string.stock_symbol_variable);
+            if(intent.hasExtra(symbolExtra)){
+                makeToast(intent.getStringExtra(symbolExtra));
+            }
+        }
+    };
+
 }
