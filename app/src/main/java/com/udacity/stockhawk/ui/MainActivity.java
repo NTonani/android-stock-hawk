@@ -90,6 +90,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        // Inform user if network is unavailable on activity resume
+        if(!networkUp()){
+            Toast.makeText(this,getString(R.string.error_no_network),Toast.LENGTH_LONG).show();
+        }
+    }
+
     private boolean networkUp() {
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -194,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return super.onOptionsItemSelected(item);
     }
 
-    private void makeToast(String symbol){
+    private void makeInvalidSymbolToast(String symbol){
         Toast.makeText(this,getString(R.string.toast_invalid_stock_added,symbol),Toast.LENGTH_LONG).show();
     }
 
@@ -204,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         public void onReceive(Context context, Intent intent) {
             String symbolExtra = getString(R.string.stock_symbol_variable);
             if(intent.hasExtra(symbolExtra)){
-                makeToast(intent.getStringExtra(symbolExtra));
+                makeInvalidSymbolToast(intent.getStringExtra(symbolExtra));
             }
         }
     };
