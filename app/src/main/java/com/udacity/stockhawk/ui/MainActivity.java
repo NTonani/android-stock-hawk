@@ -115,8 +115,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     void addStock(String symbol) {
-        if (symbol != null && !symbol.isEmpty()) {
 
+        /*
+        // Avoid resync if network is up and the symbol doesn't exist
+        // This allows the sync service to continue working off the runtime
+        if(networkUp() && !SyncUtil.symbolExists(symbol)){
+            Toast.makeText(this, getString(R.string.toast_invalid_stock_added,symbol), Toast.LENGTH_LONG).show();
+            return;
+        }
+        */
+
+        if (symbol != null && !symbol.isEmpty()) {
             if (networkUp()) {
                 swipeRefreshLayout.setRefreshing(true);
             } else {

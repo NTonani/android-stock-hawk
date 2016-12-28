@@ -69,10 +69,21 @@ public final class QuoteSyncJob {
             ArrayList<ContentValues> quoteCVs = new ArrayList<>();
 
             while (iterator.hasNext()) {
-                String symbol = iterator.next();
+                final String symbol = iterator.next();
 
 
                 Stock stock = quotes.get(symbol);
+
+                // YahooFinance API returns a Map of valid symbols only
+                // If a saved symbol isn't returned, warn user and remove from PrefUtils
+                // TODO: Determine what is more expensive:
+                //      Using contentResolver.notifyChange which will requery the DB, or using network
+                if(stock == null){
+                    // Throw something the MainActivity can capture and display the toast
+                    PrefUtils.removeStock(context,symbol);
+                    continue;
+                }
+
                 StockQuote quote = stock.getQuote();
 
                 float price = quote.getPrice().floatValue();
