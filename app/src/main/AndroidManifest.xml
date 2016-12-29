@@ -36,6 +36,23 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!-- Widget BroadcastReceiver -->
+        <receiver
+            android:name=".widget.StockWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.udacity.stockhawk.ACTION_DATA_UPDATED" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/tracked_stocks_widget" />
+        </receiver>
+
+        <!-- Widget IntentService-->
+        <service android:name=".widget.StockWidgetRemoteViewService"
+            android:enabled="@bool/widget_enabled"
+            android:exported="false"
+            android:permission="android.permissions.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>
