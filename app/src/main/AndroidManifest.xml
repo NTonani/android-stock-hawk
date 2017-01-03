@@ -49,10 +49,11 @@
         </receiver>
 
         <!-- Widget IntentService-->
-        <service android:name=".widget.StockWidgetRemoteViewService"
-            android:enabled="@bool/widget_enabled"
+        <service android:name=".widget.StockWidgetRemoteViewsService"
+            android:enabled="true"
             android:exported="false"
-            android:permission="android.permissions.BIND_REMOTEVIEWS"/>
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
     </application>
 
 </manifest>

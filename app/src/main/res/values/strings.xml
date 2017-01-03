@@ -40,4 +40,6 @@
     <!-- Stock symbol variable -->
     <string name="stock_symbol_variable">stockSymbol</string>
 
+    <string name="action_data_updated">com.udacity.stockhawk.ACTION_DATA_UPDATED</string>
+
 </resources>
