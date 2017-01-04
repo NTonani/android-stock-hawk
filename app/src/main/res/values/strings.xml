@@ -42,4 +42,7 @@
 
     <string name="action_data_updated">com.udacity.stockhawk.ACTION_DATA_UPDATED</string>
 
+    <!-- Widget -->
+    <string name="tracked_stocks_widget_empty_text">No stocks added!</string>
+
 </resources>

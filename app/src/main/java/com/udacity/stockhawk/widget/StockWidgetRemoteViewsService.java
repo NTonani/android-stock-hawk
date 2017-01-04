@@ -82,13 +82,17 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                 RemoteViews views = new RemoteViews(getPackageName(),
                         R.layout.tracked_stocks_widget_list_item);
 
+                String symbol = data.getString(INDEX_QUOTE_SYMBOL);
                 // Assign values to view objects in view hierarchy
-                views.setTextViewText(R.id.symbol,data.getString(INDEX_QUOTE_SYMBOL));
+                views.setTextViewText(R.id.symbol,symbol);
                 views.setTextViewText(R.id.price,data.getString(INDEX_QUOTE_PRICE));
 
                 // TODO Add abs / perc change
 
-                // TODO onClick Intent
+                // TODO change intent for DetailActivity.class
+                final Intent fillinIntent = new Intent();
+                //fillinIntent.setData(Contract.Quote.makeUriForStock(symbol));
+                views.setOnClickFillInIntent(R.id.tracked_stocks_widget_list_item,fillinIntent);
 
                 return views;
             }

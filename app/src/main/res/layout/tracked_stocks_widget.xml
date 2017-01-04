@@ -6,10 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
     <FrameLayout
-        android:id="@+id/tracked_stocks_widget"
+        android:id="@+id/tracked_stocks_widget_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/tracked_stocks_widget_action_bar_height"
         android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tracked_stocks_widget_action_bar_height"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:gravity="center"/>
 
     </FrameLayout>
     
@@ -23,6 +30,14 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/tracked_stocks_widget_list_item">
         </ListView>
+        <TextView
+            android:id="@+id/tracked_stocks_widget_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:text="@string/tracked_stocks_widget_empty_text"
+            android:textColor="@color/white"/>
     </FrameLayout>
 
 </LinearLayout>

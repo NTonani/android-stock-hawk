@@ -22,7 +22,9 @@ public class StockWidgetProvider extends AppWidgetProvider {
         for(int appWidgetId : appWidgetIds){
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.tracked_stocks_widget);
 
-            // TODO: PendingIntent for onClick of banner (dne atm)
+            Intent mainIntent = new Intent(context,MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,mainIntent,0);
+            remoteViews.setOnClickPendingIntent(R.id.tracked_stocks_widget_action_bar,pendingIntent);
 
             remoteViews.setRemoteAdapter(R.id.tracked_stocks_widget_list,
                     new Intent(context,StockWidgetRemoteViewsService.class));
@@ -34,6 +36,7 @@ public class StockWidgetProvider extends AppWidgetProvider {
                     .getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
 
             remoteViews.setPendingIntentTemplate(R.id.tracked_stocks_widget_list,stockItemClickedPendingIntent);
+            remoteViews.setEmptyView(R.id.tracked_stocks_widget_list,R.id.tracked_stocks_widget_empty);
 
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
         }
