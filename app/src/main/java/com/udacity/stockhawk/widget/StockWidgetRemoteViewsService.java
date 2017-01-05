@@ -10,6 +10,11 @@ import android.widget.RemoteViewsService;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
+import com.udacity.stockhawk.data.PrefUtils;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Created by ntonani on 12/29/16.
@@ -35,10 +40,19 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new RemoteViewsFactory() {
             private Cursor data = null;
+            private DecimalFormat dollarFormat;
+            private DecimalFormat dollarFormatWithPlus;
+            private DecimalFormat percentageFormat;
 
             @Override
             public void onCreate() {
-
+                dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
+                dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
+                dollarFormatWithPlus.setPositivePrefix("+$");
+                percentageFormat = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
+                percentageFormat.setMaximumFractionDigits(2);
+                percentageFormat.setMinimumFractionDigits(2);
+                percentageFormat.setPositivePrefix("+");
             }
 
             @Override
@@ -85,9 +99,26 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                 String symbol = data.getString(INDEX_QUOTE_SYMBOL);
                 // Assign values to view objects in view hierarchy
                 views.setTextViewText(R.id.symbol,symbol);
-                views.setTextViewText(R.id.price,data.getString(INDEX_QUOTE_PRICE));
+                views.setTextViewText(R.id.price,dollarFormat.format(data.getFloat(INDEX_QUOTE_PRICE)));
 
-                // TODO Add abs / perc change
+                float rawAbsoluteChange = data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
+                float percentageChange = data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
+
+                if (rawAbsoluteChange > 0) {
+                    views.setInt(R.id.change,"setBackgroundResource",R.drawable.percent_change_pill_green);
+                } else {
+                    views.setInt(R.id.change,"setBackgroundResource",R.drawable.percent_change_pill_red);
+                }
+
+                String change = dollarFormatWithPlus.format(rawAbsoluteChange);
+                String percentage = percentageFormat.format(percentageChange / 100);
+
+                if (PrefUtils.getDisplayMode(getApplicationContext())
+                        .equals(getApplicationContext().getString(R.string.pref_display_mode_absolute_key))){
+                    views.setTextViewText(R.id.change,change);
+                } else {
+                    views.setTextViewText(R.id.change,percentage);
+                }
 
                 // TODO change intent for DetailActivity.class
                 final Intent fillinIntent = new Intent();
