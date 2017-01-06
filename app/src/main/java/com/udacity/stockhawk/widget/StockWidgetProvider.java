@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.R;
@@ -26,8 +27,14 @@ public class StockWidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getActivity(context,0,mainIntent,0);
             remoteViews.setOnClickPendingIntent(R.id.tracked_stocks_widget_action_bar,pendingIntent);
 
+            Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
+
+            Intent intent = new Intent(context,StockWidgetRemoteViewsService.class);
+            intent.setAction("actionstring" + System.currentTimeMillis()); // Invalidates previously cached Intent
+            intent.putExtras(options);
+
             remoteViews.setRemoteAdapter(R.id.tracked_stocks_widget_list,
-                    new Intent(context,StockWidgetRemoteViewsService.class));
+                    intent);
 
             Intent stockItemClickedIntent = new Intent(context, MainActivity.class);
 
@@ -52,5 +59,10 @@ public class StockWidgetProvider extends AppWidgetProvider {
                     new ComponentName(context, getClass()));
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds,R.id.tracked_stocks_widget_list);
         }
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions){
+        onUpdate(context,appWidgetManager,new int[]{appWidgetId});
     }
 }

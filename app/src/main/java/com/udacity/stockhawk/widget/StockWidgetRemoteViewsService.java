@@ -1,9 +1,11 @@
 package com.udacity.stockhawk.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -38,6 +40,11 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
+        Bundle dimens = intent.getExtras();
+
+        int width = dimens.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
+        final int blocks = (width + 30) / 70;
+
         return new RemoteViewsFactory() {
             private Cursor data = null;
             private DecimalFormat dollarFormat;
@@ -93,31 +100,44 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                         || position == AdapterView.INVALID_POSITION
                         || !data.moveToPosition(position)) return null;
 
+                int layoutId = R.layout.tracked_stocks_widget_list_item;
+
+                if(blocks <= 3){
+                    layoutId = R.layout.tracked_stocks_widget_list_item_small;
+                }
+
                 RemoteViews views = new RemoteViews(getPackageName(),
-                        R.layout.tracked_stocks_widget_list_item);
+                        layoutId);
 
                 String symbol = data.getString(INDEX_QUOTE_SYMBOL);
+
                 // Assign values to view objects in view hierarchy
                 views.setTextViewText(R.id.symbol,symbol);
                 views.setTextViewText(R.id.price,dollarFormat.format(data.getFloat(INDEX_QUOTE_PRICE)));
 
-                float rawAbsoluteChange = data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
-                float percentageChange = data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
+                // TODO determine if remoteviews object shows dimensions and use them to determine whether or not
+                // the change text view should be shown
 
-                if (rawAbsoluteChange > 0) {
-                    views.setInt(R.id.change,"setBackgroundResource",R.drawable.percent_change_pill_green);
-                } else {
-                    views.setInt(R.id.change,"setBackgroundResource",R.drawable.percent_change_pill_red);
-                }
+                // If larger layout
+                if(blocks > 3){
+                    float rawAbsoluteChange = data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
+                    float percentageChange = data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
 
-                String change = dollarFormatWithPlus.format(rawAbsoluteChange);
-                String percentage = percentageFormat.format(percentageChange / 100);
+                    if (rawAbsoluteChange > 0) {
+                        views.setInt(R.id.change,"setBackgroundResource",R.drawable.percent_change_pill_green);
+                    } else {
+                        views.setInt(R.id.change,"setBackgroundResource",R.drawable.percent_change_pill_red);
+                    }
 
-                if (PrefUtils.getDisplayMode(getApplicationContext())
-                        .equals(getApplicationContext().getString(R.string.pref_display_mode_absolute_key))){
-                    views.setTextViewText(R.id.change,change);
-                } else {
-                    views.setTextViewText(R.id.change,percentage);
+                    String change = dollarFormatWithPlus.format(rawAbsoluteChange);
+                    String percentage = percentageFormat.format(percentageChange / 100);
+
+                    if (PrefUtils.getDisplayMode(getApplicationContext())
+                            .equals(getApplicationContext().getString(R.string.pref_display_mode_absolute_key))){
+                        views.setTextViewText(R.id.change,change);
+                    } else {
+                        views.setTextViewText(R.id.change,percentage);
+                    }
                 }
 
                 // TODO change intent for DetailActivity.class
