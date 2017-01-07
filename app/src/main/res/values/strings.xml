@@ -41,6 +41,8 @@
     <string name="stock_symbol_variable">stockSymbol</string>
 
     <string name="action_data_updated">com.udacity.stockhawk.ACTION_DATA_UPDATED</string>
+    <string name="action_units_updated">com.udacity.stockhawk.ACTION_UNITS_UPDATED</string>
+    <string name="action_update_units">com.udacity.stockhawk.ACTION_UPDATE_UNITS</string>
 
     <!-- Widget -->
     <string name="tracked_stocks_widget_empty_text">No stocks added!</string>

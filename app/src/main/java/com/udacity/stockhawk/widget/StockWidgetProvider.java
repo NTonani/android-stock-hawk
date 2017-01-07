@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.ui.MainActivity;
 
 /**
@@ -26,6 +27,7 @@ public class StockWidgetProvider extends AppWidgetProvider {
             Intent mainIntent = new Intent(context,MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context,0,mainIntent,0);
             remoteViews.setOnClickPendingIntent(R.id.tracked_stocks_widget_action_bar,pendingIntent);
+
 
             Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
 
@@ -58,6 +60,9 @@ public class StockWidgetProvider extends AppWidgetProvider {
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
                     new ComponentName(context, getClass()));
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds,R.id.tracked_stocks_widget_list);
+        }else if(intent.getAction().equals(context.getString(R.string.action_units_updated))){
+            PrefUtils.toggleDisplayMode(context);
+
         }
     }
 

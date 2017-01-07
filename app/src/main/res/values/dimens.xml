@@ -2,8 +2,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
 
     <!-- Tracked Stocks Widget -->
-    <dimen name="tracked_stocks_widget_default_width">180dp</dimen>
-    <dimen name="tracked_stocks_widget_default_height">110dp</dimen>
+    <dimen name="tracked_stocks_widget_default_width">250dp</dimen>
+    <dimen name="tracked_stocks_widget_default_height">180dp</dimen>
     <dimen name="tracked_stocks_widget_min_width">180dp</dimen>
     <dimen name="tracked_stocks_widget_min_height">110dp</dimen>
     <dimen name="tracked_stocks_widget_action_bar_height">64dp</dimen>
