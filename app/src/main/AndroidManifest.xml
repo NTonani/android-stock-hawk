@@ -48,7 +48,8 @@
                 android:resource="@xml/tracked_stocks_widget" />
         </receiver>
 
-        <!-- Widget IntentService-->
+        <!-- Widget IntentS
+        ervice-->
         <service android:name=".widget.StockWidgetRemoteViewsService"
             android:enabled="true"
             android:exported="false"
