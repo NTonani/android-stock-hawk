@@ -8,11 +8,19 @@
     <dimen name="tracked_stocks_widget_min_height">110dp</dimen>
     <dimen name="tracked_stocks_widget_action_bar_height">64dp</dimen>
 
-    <!-- Standard Card View Attributes -->
-    <dimen name="detail_card_view_height">100dp</dimen>
-    <dimen name="card_view_corner_radius">4dp</dimen>
-    <dimen name="card_view_elevation">2dp</dimen>
-    <dimen name="card_view_padding">0dp</dimen>
-    <dimen name="card_view_margin">10dp</dimen>
+    <!-- Info Card View Attributes -->
+    <dimen name="info_card_view_height">80dp</dimen>
+    <dimen name="info_card_view_width">250dp</dimen>
+    <dimen name="info_card_view_corner_radius">12dp</dimen>
+    <dimen name="info_card_view_elevation">8dp</dimen>
+    <dimen name="info_card_text_view">40dp</dimen>
+    <dimen name="info_card_view_padding">12dp</dimen>
+
+    <!-- Chart Card View Attributes -->
+    <dimen name="chart_card_view_height">250dp</dimen>
+    <dimen name="chart_card_view_corner_radius">4dp</dimen>
+    <dimen name="chart_card_view_elevation">2dp</dimen>
+    <dimen name="chart_card_view_padding">12dp</dimen>
+    <dimen name="chart_card_view_margin">10dp</dimen>
 
 </resources>

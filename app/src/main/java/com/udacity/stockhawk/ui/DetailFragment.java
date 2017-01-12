@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewCompat;
@@ -197,6 +198,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularityEnabled(false);
+        xAxis.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),R.color.white));
 
         YAxis left = mLineChart.getAxisLeft();
 
@@ -208,6 +210,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         left.setEnabled(true);
         left.setLabelCount(10, true);
         left.setGranularityEnabled(false);
+        left.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(),R.color.white));
 
         // Hide axis, legend, description, background grid
         mLineChart.getLegend().setEnabled(false);
@@ -216,6 +219,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         LineDataSet dataSet = new LineDataSet(yValues,getString(R.string.detail_activity_chart_label));
         dataSet.setDrawCircles(false);
+        dataSet.setColor(ContextCompat.getColor(getActivity().getApplicationContext(),R.color.material_blue_500));
 
         LineData lineData = new LineData(dataSet);
 
