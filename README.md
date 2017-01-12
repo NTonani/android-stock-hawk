@@ -8,7 +8,7 @@ Stock Hawk app has been created for the Android Developer Nanodegree offered by 
 * Dialog to add to tracked stocks
 * Detail page with stock closing prices over time
 * Widget with dynamic layouts
-* Informative UI
+* Informative UI on network / db failures
 
 ## Screenshots
 
