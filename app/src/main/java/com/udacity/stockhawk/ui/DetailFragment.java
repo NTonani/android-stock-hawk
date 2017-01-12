@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -40,6 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import yahoofinance.Stock;
 
+import static com.udacity.stockhawk.R.id.symbol;
 import static com.udacity.stockhawk.data.Contract.Quote.COLUMN_ABSOLUTE_CHANGE;
 import static com.udacity.stockhawk.data.Contract.Quote.COLUMN_HISTORY;
 import static com.udacity.stockhawk.data.Contract.Quote.COLUMN_PERCENTAGE_CHANGE;
@@ -73,7 +75,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @BindView(R.id.detail_info_frame)
     FrameLayout mFrameLayout;
 
-    @BindView(R.id.symbol)
+    @BindView(symbol)
     TextView mSymbolView;
 
     @BindView(R.id.price)
@@ -134,9 +136,11 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if(loader.getId() != STOCK_LOADER) return;
 
+        // No data against stock symbol
         if(!data.moveToFirst()){
-            // Inform user of error via symbol view
-            mSymbolView.setText(getString(R.string.detail_activity_no_data,mSymbol));
+            mSymbolView.setText(mSymbol);
+            mPriceView.setText(getString(R.string.detail_activity_no_data));
+            Toast.makeText(getContext(),getString(R.string.toast_detail_activity_no_data,mSymbol),Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -152,8 +156,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         String rawHistoricalData = data.getString(POSITION_HISTORY);
+
+        // No historical data against stock symbol
         if(rawHistoricalData == null){
-            // TODO Empty view
+            mSymbolView.setText(mSymbol);
+            mPriceView.setText(getString(R.string.detail_activity_no_data));
+            Toast.makeText(getContext(),getString(R.string.toast_detail_activity_no_data,mSymbol),Toast.LENGTH_LONG).show();
             return;
         }
 

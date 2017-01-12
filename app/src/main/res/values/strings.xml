@@ -33,6 +33,7 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
     <string name="toast_invalid_stock_added">Symbol %s is invalid and will not be tracked.</string>
+    <string name="toast_detail_activity_no_data">No data was found for %s - Please confirm network is available to refresh</string>
 
     <!-- Intent filters -->
     <string name="invalid_symbol_intent_filter" translatable="false">InvalidSymbol</string>
@@ -50,7 +51,7 @@
     <!-- Detail Activity -->
     <string name="detail_activity_title">Stock Hawk: %s</string>
     <string name="detail_activity_chart_label">Closing price</string>
-    <string name="detail_activity_no_data">No data was found for %s - Please confirm network is available</string>
+    <string name="detail_activity_no_data">No data</string>
 
     <!-- Content Descriptions -->
     <string name="cd_widget_action_bar">Open Stock Hawk app from widget</string>
