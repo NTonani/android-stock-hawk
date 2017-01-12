@@ -47,4 +47,8 @@
     <!-- Widget -->
     <string name="tracked_stocks_widget_empty_text">No stocks added!</string>
 
+    <!-- Detail Activity -->
+    <string name="detail_activity_title">Stock Hawk: %s</string>
+    <string name="detail_activity_chart_label">Closing price</string>
+
 </resources>
