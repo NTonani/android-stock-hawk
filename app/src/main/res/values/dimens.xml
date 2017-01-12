@@ -1,5 +1,6 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="info_frame_margin_bottom">-40dp</dimen>
 
     <!-- Tracked Stocks Widget -->
     <dimen name="tracked_stocks_widget_default_width">250dp</dimen>
@@ -15,12 +16,14 @@
     <dimen name="info_card_view_elevation">8dp</dimen>
     <dimen name="info_card_text_view">40dp</dimen>
     <dimen name="info_card_view_padding">12dp</dimen>
+    <dimen name="info_card_view_margin">4dp</dimen>
 
     <!-- Chart Card View Attributes -->
     <dimen name="chart_card_view_height">250dp</dimen>
     <dimen name="chart_card_view_corner_radius">4dp</dimen>
     <dimen name="chart_card_view_elevation">2dp</dimen>
     <dimen name="chart_card_view_padding">12dp</dimen>
-    <dimen name="chart_card_view_margin">10dp</dimen>
+    <dimen name="chart_card_view_margin">16dp</dimen>
+    <dimen name="chart_view_margin">8dp</dimen>
 
 </resources>

@@ -109,7 +109,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         View rootView = inflater.inflate(R.layout.fragment_detail,container,false);
         ButterKnife.bind(this,rootView);
 
-        //mFrameLayout.bringToFront();
+        mFrameLayout.bringToFront();
         return rootView;
     }
 
