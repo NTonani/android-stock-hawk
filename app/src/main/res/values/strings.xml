@@ -3,19 +3,19 @@
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
-    <string name="pref_stocks_key">stocks</string>
+    <string name="pref_stocks_key" translatable="false">stocks</string>
 
 
-    <string name="pref_display_mode_key">displayMode</string>
-    <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
+    <string name="pref_display_mode_key" translatable="false">displayMode</string>
+    <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
 
-    <string name="pref_display_mode_absolute_key">absolute</string>
-    <string name="pref_display_mode_percentage_key">percentage</string>
+    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
+    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
 
-    <string name="default_stocks_yahoo">YHOO</string>
-    <string name="default_stocks_apple">AAPL</string>
-    <string name="default_stocks_microsoft">MSFT</string>
-    <string name="default_stocks_facebook">FB</string>
+    <string name="default_stocks_yahoo" translatable="false">YHOO</string>
+    <string name="default_stocks_apple" translatable="false">AAPL</string>
+    <string name="default_stocks_microsoft" translatable="false">MSFT</string>
+    <string name="default_stocks_facebook" translatable="false">FB</string>
 
 
     <string name="action_change_units">@string/pref_display_mode_key</string>
@@ -35,14 +35,14 @@
     <string name="toast_invalid_stock_added">Symbol %s is invalid and will not be tracked.</string>
 
     <!-- Intent filters -->
-    <string name="invalid_symbol_intent_filter">InvalidSymbol</string>
+    <string name="invalid_symbol_intent_filter" translatable="false">InvalidSymbol</string>
 
     <!-- Stock symbol variable -->
-    <string name="stock_symbol_variable">stockSymbol</string>
+    <string name="stock_symbol_variable" translatable="false">stockSymbol</string>
 
-    <string name="action_data_updated">com.udacity.stockhawk.ACTION_DATA_UPDATED</string>
-    <string name="action_units_updated">com.udacity.stockhawk.ACTION_UNITS_UPDATED</string>
-    <string name="action_update_units">com.udacity.stockhawk.ACTION_UPDATE_UNITS</string>
+    <string name="action_data_updated" translatable="false">com.udacity.stockhawk.ACTION_DATA_UPDATED</string>
+    <string name="action_units_updated" translatable="false">com.udacity.stockhawk.ACTION_UNITS_UPDATED</string>
+    <string name="action_update_units" translatable="false">com.udacity.stockhawk.ACTION_UPDATE_UNITS</string>
 
     <!-- Widget -->
     <string name="tracked_stocks_widget_empty_text">No stocks added!</string>

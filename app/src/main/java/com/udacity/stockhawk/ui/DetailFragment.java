@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +29,9 @@ import com.udacity.stockhawk.data.Contract;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -92,6 +93,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private Stock mStock;
     private Uri mStockUri;
     private DecimalFormat dollarFormat;
+    private boolean isRtl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -103,6 +105,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         }
 
         dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
+        isRtl = getResources().getConfiguration().getLayoutDirection() == ViewCompat.LAYOUT_DIRECTION_RTL;
 
         View rootView = inflater.inflate(R.layout.fragment_detail,container,false);
         ButterKnife.bind(this,rootView);
@@ -114,7 +117,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         getLoaderManager().initLoader(STOCK_LOADER, null, this);
-        // ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.detail_activity_title,mSymbol));
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -159,8 +161,15 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             String[] dateAndClose = rawHistoricalDataPoint.split(",");
             Calendar curCal = new GregorianCalendar();
             curCal.setTimeInMillis(Long.parseLong(dateAndClose[0]));
-            xLabels.add(simpleDateFormat.format(curCal.getTime()));
-            yValues.add(new Entry(rawHistoricalDataPoints.length-i-1,Float.parseFloat(dateAndClose[1])));
+
+            // Handle rtl
+            if(isRtl){
+                yValues.add(0,new Entry(i,Float.parseFloat(dateAndClose[1])));
+                xLabels.add(0,simpleDateFormat.format(curCal.getTime()));
+            }else {
+                yValues.add(new Entry(rawHistoricalDataPoints.length-i-1,Float.parseFloat(dateAndClose[1])));
+                xLabels.add(simpleDateFormat.format(curCal.getTime()));
+            }
         }
 
         final List<String> final_xLabels = new ArrayList<String>(xLabels);
@@ -180,12 +189,17 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         xAxis.setGranularityEnabled(false);
 
         YAxis left = mLineChart.getAxisLeft();
+
+        if(isRtl){
+            left = mLineChart.getAxisRight();
+            mLineChart.getAxisLeft().setEnabled(false);
+        }else  mLineChart.getAxisRight().setEnabled(false);
+
         left.setEnabled(true);
         left.setLabelCount(10, true);
         left.setGranularityEnabled(false);
 
-        // Hide right axis, legend, description, background grid
-        mLineChart.getAxisRight().setEnabled(false);
+        // Hide axis, legend, description, background grid
         mLineChart.getLegend().setEnabled(false);
         mLineChart.getDescription().setEnabled(false);
         mLineChart.setDrawGridBackground(false);
