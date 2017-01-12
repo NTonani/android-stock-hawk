@@ -1,6 +1,6 @@
 ## Stock Hawk
 
-Stock Hawk app has been created for the Android Developer Nanodegree offered by Udacity. The purpose was to diagnose existing issues within the app, as well as expand on the behavior.
+Stock Hawk app has been created for the Android Developer Nanodegree offered by Udacity. The purpose was to debug existing issues, as well as expand on the feature base.
 
 ## Features
 
