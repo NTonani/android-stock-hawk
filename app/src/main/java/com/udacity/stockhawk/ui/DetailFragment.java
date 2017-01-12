@@ -2,7 +2,6 @@ package com.udacity.stockhawk.ui;
 
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -27,7 +26,6 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -40,9 +38,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 import yahoofinance.Stock;
-import yahoofinance.YahooFinance;
 
 import static com.udacity.stockhawk.data.Contract.Quote.COLUMN_ABSOLUTE_CHANGE;
 import static com.udacity.stockhawk.data.Contract.Quote.COLUMN_HISTORY;
@@ -136,7 +132,13 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if(loader.getId() != STOCK_LOADER || !data.moveToFirst()) return;
+        if(loader.getId() != STOCK_LOADER) return;
+
+        if(!data.moveToFirst()){
+            // Inform user of error via symbol view
+            mSymbolView.setText(getString(R.string.detail_activity_no_data,mSymbol));
+            return;
+        }
 
         // Set symbol
         mSymbolView.setText(data.getString(POSITION_SYMBOL));
@@ -215,32 +217,5 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {}
-
-    public class FetchHistoryData extends AsyncTask<String,Void,Stock> {
-
-        @Override
-        protected Stock doInBackground(String... strings) {
-            String symbol = strings[0];
-            if(symbol == null) return null;
-
-            try{
-                return YahooFinance.get(symbol,true);
-            }catch(IOException e){
-                Timber.e("Failed to get historical data of symbol: %s",symbol);
-            }
-
-            return null; // Fail state
-        }
-
-        @Override
-        protected void onPostExecute(Stock stock) {
-            if(stock==null){
-                // TODO empty view
-                return;
-            }
-
-
-        }
-    }
 }
 

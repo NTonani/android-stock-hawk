@@ -50,6 +50,7 @@
     <!-- Detail Activity -->
     <string name="detail_activity_title">Stock Hawk: %s</string>
     <string name="detail_activity_chart_label">Closing price</string>
+    <string name="detail_activity_no_data">No data was found for %s - Please confirm network is available</string>
 
     <!-- Content Descriptions -->
     <string name="cd_widget_action_bar">Open Stock Hawk app from widget</string>
