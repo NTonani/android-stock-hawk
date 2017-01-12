@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.ui.DetailActivity;
 import com.udacity.stockhawk.ui.MainActivity;
 
 /**
@@ -38,7 +39,7 @@ public class StockWidgetProvider extends AppWidgetProvider {
             remoteViews.setRemoteAdapter(R.id.tracked_stocks_widget_list,
                     intent);
 
-            Intent stockItemClickedIntent = new Intent(context, MainActivity.class);
+            Intent stockItemClickedIntent = new Intent(context, DetailActivity.class);
 
             PendingIntent stockItemClickedPendingIntent = TaskStackBuilder.create(context)
                     .addNextIntentWithParentStack(stockItemClickedIntent)

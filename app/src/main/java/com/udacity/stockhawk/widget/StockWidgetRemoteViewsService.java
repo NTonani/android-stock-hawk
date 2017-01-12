@@ -140,9 +140,8 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                     }
                 }
 
-                // TODO change intent for DetailActivity.class
                 final Intent fillinIntent = new Intent();
-                //fillinIntent.setData(Contract.Quote.makeUriForStock(symbol));
+                fillinIntent.setData(Contract.Quote.makeUriForStock(symbol));
                 views.setOnClickFillInIntent(R.id.tracked_stocks_widget_list_item,fillinIntent);
 
                 views.setContentDescription(R.id.tracked_stocks_widget_list_item,getString(R.string.cd_widget_stock_item,symbol));
