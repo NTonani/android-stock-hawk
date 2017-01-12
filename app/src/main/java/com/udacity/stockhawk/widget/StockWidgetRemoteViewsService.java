@@ -145,6 +145,8 @@ public class StockWidgetRemoteViewsService extends RemoteViewsService {
                 //fillinIntent.setData(Contract.Quote.makeUriForStock(symbol));
                 views.setOnClickFillInIntent(R.id.tracked_stocks_widget_list_item,fillinIntent);
 
+                views.setContentDescription(R.id.tracked_stocks_widget_list_item,getString(R.string.cd_widget_stock_item,symbol));
+
                 return views;
             }
 

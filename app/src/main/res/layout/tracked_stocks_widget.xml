@@ -9,7 +9,8 @@
         android:id="@+id/tracked_stocks_widget_action_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tracked_stocks_widget_action_bar_height"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:contentDescription="@string/cd_widget_action_bar">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/tracked_stocks_widget_action_bar_height"

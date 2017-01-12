@@ -51,4 +51,11 @@
     <string name="detail_activity_title">Stock Hawk: %s</string>
     <string name="detail_activity_chart_label">Closing price</string>
 
+    <!-- Content Descriptions -->
+    <string name="cd_widget_action_bar">Open Stock Hawk app from widget</string>
+    <string name="cd_widget_stock_item">Open details page of Stock Hawk app for stock %s</string>
+    <string name="cd_detail_stock_item">Open details page for stock %s</string>
+    <string name="cd_add_stock_dialog">Input stock to track</string>
+    <string name="cd_add_stock_button">Open dialog to add stock</string>
+
 </resources>
